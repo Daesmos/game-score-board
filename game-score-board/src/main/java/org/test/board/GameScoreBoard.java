@@ -3,11 +3,16 @@ package org.test.board;
 import java.util.List;
 
 public class GameScoreBoard {
-    public void createGame(String homeTeam, String awayTeam) {
 
+    private PlayingTeam homeTeam;
+    private PlayingTeam awayTeam;
+
+    public void createGame(String homeTeamName, String awayTeamName) {
+        this.homeTeam = new PlayingTeam(homeTeamName);
+        this.awayTeam = new PlayingTeam(awayTeamName);
     }
 
     public List<String> getSummary() {
-        return List.of("Mexico 0 - Canada 0");
+        return List.of(this.homeTeam.getTeamSummary().concat(" - ").concat(this.awayTeam.getTeamSummary()));
     }
 }

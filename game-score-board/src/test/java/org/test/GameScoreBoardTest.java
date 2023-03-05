@@ -19,4 +19,15 @@ class GameScoreBoardTest {
 
         assertLinesMatch(expectedSummary, summary);
     }
+
+    @Test
+    void createDifferentNewGameOnScoreBoardWithInitialScore() {
+        GameScoreBoard board = new GameScoreBoard();
+        board.createGame("Spain", "Brazil");
+
+        List<String> summary = board.getSummary();
+        List<String> expectedSummary = List.of("Spain 0 - Brazil 0");
+
+        assertLinesMatch(expectedSummary, summary);
+    }
 }
