@@ -1,18 +1,23 @@
 package org.test.board;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameScoreBoard {
 
-    private PlayingTeam homeTeam;
-    private PlayingTeam awayTeam;
+    List<Game> games = new ArrayList<>();
 
     public void createGame(String homeTeamName, String awayTeamName) {
-        this.homeTeam = new PlayingTeam(homeTeamName);
-        this.awayTeam = new PlayingTeam(awayTeamName);
+        Game newGame = new Game(homeTeamName, awayTeamName);
+        games.add(newGame);
     }
 
     public List<String> getSummary() {
-        return List.of(this.homeTeam.getTeamSummary().concat(" - ").concat(this.awayTeam.getTeamSummary()));
+        return games.stream().map(Game::getGameSummary).collect(Collectors.toList());
+    }
+
+    public void finishGame() {
+        games.remove(0);
     }
 }

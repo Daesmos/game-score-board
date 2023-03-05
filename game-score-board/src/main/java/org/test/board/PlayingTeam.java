@@ -2,8 +2,8 @@ package org.test.board;
 
 public class PlayingTeam {
 
-    String name;
-    int score;
+    private String name;
+    private int score;
 
     protected PlayingTeam(String name){
         this.name = name;

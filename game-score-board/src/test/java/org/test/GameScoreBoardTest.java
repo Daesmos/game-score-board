@@ -30,4 +30,14 @@ class GameScoreBoardTest {
 
         assertLinesMatch(expectedSummary, summary);
     }
+
+    @Test
+    void finishGame() {
+        GameScoreBoard board = new GameScoreBoard();
+        board.createGame("Mexico", "Canada");
+
+        board.finishGame();
+        assertLinesMatch(List.of(), board.getSummary());
+    }
+
 }
