@@ -9,7 +9,6 @@ public class Game {
     protected Game(String homeTeamName, String awayTeamName) {
         this.homeTeam = new PlayingTeam(homeTeamName);
         this.awayTeam = new PlayingTeam(awayTeamName);
-
     }
 
     public String getGameSummary() {

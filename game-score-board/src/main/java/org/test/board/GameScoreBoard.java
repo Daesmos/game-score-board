@@ -8,16 +8,17 @@ public class GameScoreBoard {
 
     List<Game> games = new ArrayList<>();
 
-    public void createGame(String homeTeamName, String awayTeamName) {
+    public Game createGame(String homeTeamName, String awayTeamName) {
         Game newGame = new Game(homeTeamName, awayTeamName);
         games.add(newGame);
+        return newGame;
     }
 
     public List<String> getSummary() {
         return games.stream().map(Game::getGameSummary).collect(Collectors.toList());
     }
 
-    public void finishGame() {
-        games.remove(0);
+    public boolean finishGame(Game game) {
+        return games.remove(game);
     }
 }
