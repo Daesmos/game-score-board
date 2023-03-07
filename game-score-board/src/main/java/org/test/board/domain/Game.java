@@ -19,6 +19,10 @@ public class Game {
         return awayTeam;
     }
 
+    protected int getSumScore() {
+        return this.homeTeam.getScore() + this.awayTeam.getScore();
+    }
+
     protected String getGameSummary() {
         return this.homeTeam.getTeamSummary().concat(SUMMARY_SEPARATOR).concat(this.awayTeam.getTeamSummary());
     }

@@ -11,6 +11,10 @@ public class PlayingTeam {
         this.score = 0;
     }
 
+    protected int getScore() {
+        return this.score;
+    }
+
     protected void setScore(int score) {
         this.score = score;
     }

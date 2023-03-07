@@ -77,6 +77,7 @@ class GameScoreBoardTest {
 
         assertThrows(GameNotFoundException.class, () -> frenchGamesBoard.finishGame(gameSevBet));
     }
+
     @Test
     void throwExceptionWhenTryingUpdateGameOfAnotherBoard() {
         GameScoreBoard spanishGamesBoard = new GameScoreBoard();
@@ -86,6 +87,24 @@ class GameScoreBoardTest {
         frenchGamesBoard.createGame("Monaco", "Marseille");
 
         assertThrows(GameNotFoundException.class, () -> frenchGamesBoard.updateGameScore( 2, 1, gameSevBet));
+    }
+
+    @Test
+    void getSummaryOrderByTotalGameScore() throws GameNotFoundException {
+        GameScoreBoard board = new GameScoreBoard();
+        Game gameMexCan = board.createGame("Mexico", "Canada");
+        Game gameSpaBra = board.createGame("Spain", "Brazil");
+        Game gameGerFra = board.createGame("Germany", "France");
+
+        board.updateGameScore(1, 2, gameGerFra);
+        board.updateGameScore(2, 3, gameMexCan);
+        board.updateGameScore(4, 3, gameSpaBra);
+
+        List<String> expectedSummary = List.of(
+                "Spain 4 - Brazil 3",
+                "Mexico 2 - Canada 3",
+                "Germany 1 - France 2");
+        assertLinesMatch(expectedSummary, board.getSummary());
     }
 
 }

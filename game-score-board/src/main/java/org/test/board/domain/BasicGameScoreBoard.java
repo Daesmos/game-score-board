@@ -3,6 +3,7 @@ package org.test.board.domain;
 import org.test.board.exception.GameNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,10 @@ public class BasicGameScoreBoard implements IGameScoreBoard {
     }
 
     public List<String> getSummary() {
-        return games.stream().map(Game::getGameSummary).collect(Collectors.toList());
+        return games.stream()
+                .sorted(Comparator.comparingInt(Game::getSumScore).reversed())
+                .map(Game::getGameSummary)
+                .collect(Collectors.toList());
     }
 
     public boolean finishGame(Game game) throws GameNotFoundException {
