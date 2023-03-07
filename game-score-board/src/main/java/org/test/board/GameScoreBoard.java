@@ -9,21 +9,21 @@ import java.util.List;
 
 public class GameScoreBoard {
 
-    IGameScoreBoard gameScoreBoard = new BasicGameScoreBoard();
-
+    IGameScoreBoard board = new BasicGameScoreBoard();
+    
     public Game createGame(String homeTeamName, String awayTeamName) {
-        return this.gameScoreBoard.createGame(homeTeamName, awayTeamName);
+        return this.board.createGame(homeTeamName, awayTeamName);
     }
 
     public List<String> getSummary() {
-        return this.gameScoreBoard.getSummary();
+        return this.board.getSummary();
     }
 
     public boolean finishGame(Game game) throws GameNotFoundException {
-        return this.gameScoreBoard.finishGame(game);
+        return this.board.finishGame(game);
     }
 
     public void updateGameScore(int homeTeamScore, int awayTeamScore, Game game) throws GameNotFoundException {
-        this.gameScoreBoard.updateGameScore(homeTeamScore, awayTeamScore, game);
+        this.board.updateGameScore(homeTeamScore, awayTeamScore, game);
     }
 }

@@ -3,12 +3,19 @@ package org.test.board.domain;
 public class Game {
 
     private static final String SUMMARY_SEPARATOR = " - ";
+
+    int index;
     private PlayingTeam homeTeam;
     private PlayingTeam awayTeam;
 
-    protected Game(String homeTeamName, String awayTeamName) {
+    protected Game(String homeTeamName, String awayTeamName, int index) {
+        this.index = index;
         this.homeTeam = new PlayingTeam(homeTeamName);
         this.awayTeam = new PlayingTeam(awayTeamName);
+    }
+
+    protected int getIndex() {
+        return index;
     }
 
     protected PlayingTeam getHomeTeam() {

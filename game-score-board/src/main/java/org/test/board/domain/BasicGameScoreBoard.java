@@ -9,17 +9,27 @@ import java.util.stream.Collectors;
 
 public class BasicGameScoreBoard implements IGameScoreBoard {
 
-    List<Game> games = new ArrayList<>();
+    int gamesAddedIndex;
+    List<Game> games;
+
+    public BasicGameScoreBoard() {
+        this.gamesAddedIndex = 0;
+        this.games = new ArrayList<>();
+    }
 
     public Game createGame(String homeTeamName, String awayTeamName) {
-        Game newGame = new Game(homeTeamName, awayTeamName);
+        this.gamesAddedIndex++;
+        Game newGame = new Game(homeTeamName, awayTeamName, this.gamesAddedIndex);
         games.add(newGame);
         return newGame;
     }
 
     public List<String> getSummary() {
         return games.stream()
-                .sorted(Comparator.comparingInt(Game::getSumScore).reversed())
+                .sorted(Comparator
+                        .comparingInt(Game::getSumScore)
+                        .thenComparing(Game::getIndex)
+                        .reversed())
                 .map(Game::getGameSummary)
                 .collect(Collectors.toList());
     }

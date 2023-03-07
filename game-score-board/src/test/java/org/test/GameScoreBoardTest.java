@@ -68,6 +68,20 @@ class GameScoreBoardTest {
     }
 
     @Test
+    void updateGameScoreSeveralTimes() throws GameNotFoundException {
+        GameScoreBoard board = new GameScoreBoard();
+        Game gameMexCan = board.createGame("Mexico", "Canada");
+        board.updateGameScore(0, 1, gameMexCan);
+        board.updateGameScore(0, 2, gameMexCan);
+        board.updateGameScore(0, 3, gameMexCan);
+        board.updateGameScore(1, 3, gameMexCan);
+        board.updateGameScore(1, 4, gameMexCan);
+
+        List<String> expectedSummary = List.of("Mexico 1 - Canada 4");
+        assertLinesMatch(expectedSummary, board.getSummary());
+    }
+
+    @Test
     void throwExceptionWhenTryingFinishGameOfAnotherBoard() {
         GameScoreBoard spanishGamesBoard = new GameScoreBoard();
         GameScoreBoard frenchGamesBoard = new GameScoreBoard();
@@ -104,6 +118,30 @@ class GameScoreBoardTest {
                 "Spain 4 - Brazil 3",
                 "Mexico 2 - Canada 3",
                 "Germany 1 - France 2");
+        assertLinesMatch(expectedSummary, board.getSummary());
+    }
+
+    @Test
+    void getSummaryOrderWithSameTotalByMostRecentlyAdded() throws GameNotFoundException {
+        GameScoreBoard board = new GameScoreBoard();
+        Game gameMexCan = board.createGame("Mexico", "Canada");
+        Game gameSpaBra = board.createGame("Spain", "Brazil");
+        Game gameGerFra = board.createGame("Germany", "France");
+        Game gameUruIta = board.createGame("Uruguay", "Italy");
+        Game gameArgAus = board.createGame("Argentina", "Australia");
+
+        board.updateGameScore(2, 2, gameGerFra);
+        board.updateGameScore(0, 5, gameMexCan);
+        board.updateGameScore(10, 2, gameSpaBra);
+        board.updateGameScore(6, 6, gameUruIta);
+        board.updateGameScore(3, 1, gameArgAus);
+
+        List<String> expectedSummary = List.of(
+                "Uruguay 6 - Italy 6",
+                "Spain 10 - Brazil 2",
+                "Mexico 0 - Canada 5",
+                "Argentina 3 - Australia 1",
+                "Germany 2 - France 2");
         assertLinesMatch(expectedSummary, board.getSummary());
     }
 
