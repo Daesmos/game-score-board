@@ -7,8 +7,6 @@ The summary is ordered by total score. Those games with the same total score wil
 
 ### Assumptions
 
-- The user can only interact with the GameScoreBoard class, BasicGameScoreBoard class and IGameScoreBoard interface.
-- The user does not have to interact with any of the other inner classes.
 - The board can have more than one game.
 - To indicate to the board that a game is over, the user must indicate which game it is.
 - To update the scoreboard for a game, the user must indicate not only the new markers, but also the game to which they apply.

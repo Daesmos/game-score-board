@@ -8,29 +8,29 @@ public class Game {
     private PlayingTeam homeTeam;
     private PlayingTeam awayTeam;
 
-    protected Game(String homeTeamName, String awayTeamName, int index) {
+    public Game(String homeTeamName, String awayTeamName, int index) {
         this.index = index;
         this.homeTeam = new PlayingTeam(homeTeamName);
         this.awayTeam = new PlayingTeam(awayTeamName);
     }
 
-    protected int getIndex() {
+    public int getIndex() {
         return index;
     }
 
-    protected PlayingTeam getHomeTeam() {
+    public PlayingTeam getHomeTeam() {
         return homeTeam;
     }
 
-    protected PlayingTeam getAwayTeam() {
+    public PlayingTeam getAwayTeam() {
         return awayTeam;
     }
 
-    protected int getSumScore() {
+    public int getSumScore() {
         return this.homeTeam.getScore() + this.awayTeam.getScore();
     }
 
-    protected String getGameSummary() {
+    public String getGameSummary() {
         return this.homeTeam.getTeamSummary().concat(SUMMARY_SEPARATOR).concat(this.awayTeam.getTeamSummary());
     }
 }

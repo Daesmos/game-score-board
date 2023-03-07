@@ -1,8 +1,9 @@
 package org.test.board.domain;
 
 import org.test.board.exception.GameNotFoundException;
+import org.test.board.repository.InMemoryListScoreBoardRepository;
+import org.test.board.repository.ScoreBoardRepository;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,22 +11,22 @@ import java.util.stream.Collectors;
 public class BasicGameScoreBoard implements IGameScoreBoard {
 
     int gamesAddedIndex;
-    List<Game> games;
+    ScoreBoardRepository gamesRepository;
 
     public BasicGameScoreBoard() {
         this.gamesAddedIndex = 0;
-        this.games = new ArrayList<>();
+        this.gamesRepository = new InMemoryListScoreBoardRepository();
     }
 
     public Game createGame(String homeTeamName, String awayTeamName) {
         this.gamesAddedIndex++;
         Game newGame = new Game(homeTeamName, awayTeamName, this.gamesAddedIndex);
-        games.add(newGame);
+        gamesRepository.add(newGame);
         return newGame;
     }
 
     public List<String> getSummary() {
-        return games.stream()
+        return gamesRepository.getAllGames().stream()
                 .sorted(Comparator
                         .comparingInt(Game::getSumScore)
                         .thenComparing(Game::getIndex)
@@ -35,19 +36,10 @@ public class BasicGameScoreBoard implements IGameScoreBoard {
     }
 
     public boolean finishGame(Game game) throws GameNotFoundException {
-        if(games.contains(game)) {
-            return games.remove(game);
-        } else {
-            throw new GameNotFoundException();
-        }
+        return gamesRepository.remove(game);
     }
 
     public void updateGameScore (int homeTeamScore, int awayTeamScore, Game game) throws GameNotFoundException {
-        if(games.contains(game)) {
-            game.getHomeTeam().setScore(homeTeamScore);
-            game.getAwayTeam().setScore(awayTeamScore);
-        } else {
-            throw new GameNotFoundException();
-        }
+        this.gamesRepository.updateGameScore(homeTeamScore, awayTeamScore, game);
     }
 }
