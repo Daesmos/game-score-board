@@ -3,11 +3,11 @@ package org.test;
 import org.junit.jupiter.api.Test;
 import org.test.board.domain.Game;
 import org.test.board.GameScoreBoard;
+import org.test.board.exception.GameNotFoundException;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertLinesMatch;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GameScoreBoardTest {
 
@@ -34,7 +34,7 @@ class GameScoreBoardTest {
     }
 
     @Test
-    void finishGame() {
+    void finishGame() throws GameNotFoundException {
         GameScoreBoard board = new GameScoreBoard();
         Game gameMexCan = board.createGame("Mexico", "Canada");
 
@@ -44,7 +44,7 @@ class GameScoreBoardTest {
     }
 
     @Test
-    void createTwoGamesAndFinishOnlyOne() {
+    void createTwoGamesAndFinishOnlyOne() throws GameNotFoundException {
         GameScoreBoard board = new GameScoreBoard();
         Game gameMexCan = board.createGame("Mexico", "Canada");
         board.createGame("Spain", "Brazil");
@@ -58,13 +58,34 @@ class GameScoreBoardTest {
     }
 
     @Test
-    void updateGameScore() {
+    void updateGameScore() throws GameNotFoundException {
         GameScoreBoard board = new GameScoreBoard();
         Game gameMexCan = board.createGame("Mexico", "Canada");
         board.updateGameScore(2, 1, gameMexCan);
 
         List<String> expectedSummary = List.of("Mexico 2 - Canada 1");
         assertLinesMatch(expectedSummary, board.getSummary());
+    }
+
+    @Test
+    void throwExceptionWhenTryingFinishGameOfAnotherBoard() {
+        GameScoreBoard spanishGamesBoard = new GameScoreBoard();
+        GameScoreBoard frenchGamesBoard = new GameScoreBoard();
+
+        Game gameSevBet = spanishGamesBoard.createGame("Sevilla", "Betis");
+        frenchGamesBoard.createGame("Monaco", "Marseille");
+
+        assertThrows(GameNotFoundException.class, () -> frenchGamesBoard.finishGame(gameSevBet));
+    }
+    @Test
+    void throwExceptionWhenTryingUpdateGameOfAnotherBoard() {
+        GameScoreBoard spanishGamesBoard = new GameScoreBoard();
+        GameScoreBoard frenchGamesBoard = new GameScoreBoard();
+
+        Game gameSevBet = spanishGamesBoard.createGame("Sevilla", "Betis");
+        frenchGamesBoard.createGame("Monaco", "Marseille");
+
+        assertThrows(GameNotFoundException.class, () -> frenchGamesBoard.updateGameScore( 2, 1, gameSevBet));
     }
 
 }
