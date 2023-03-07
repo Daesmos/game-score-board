@@ -1,4 +1,4 @@
-package org.test.board;
+package org.test.board.domain;
 
 public class Game {
 
@@ -11,7 +11,15 @@ public class Game {
         this.awayTeam = new PlayingTeam(awayTeamName);
     }
 
-    public String getGameSummary() {
+    protected PlayingTeam getHomeTeam() {
+        return homeTeam;
+    }
+
+    protected PlayingTeam getAwayTeam() {
+        return awayTeam;
+    }
+
+    protected String getGameSummary() {
         return this.homeTeam.getTeamSummary().concat(SUMMARY_SEPARATOR).concat(this.awayTeam.getTeamSummary());
     }
 }

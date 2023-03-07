@@ -1,4 +1,4 @@
-package org.test.board;
+package org.test.board.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,5 +20,10 @@ public class BasicGameScoreBoard implements IGameScoreBoard {
 
     public boolean finishGame(Game game) {
         return games.remove(game);
+    }
+
+    public void updateGameScore(int homeTeamScore, int awayTeamScore, Game game) {
+        game.getHomeTeam().setScore(homeTeamScore);
+        game.getAwayTeam().setScore(awayTeamScore);
     }
 }

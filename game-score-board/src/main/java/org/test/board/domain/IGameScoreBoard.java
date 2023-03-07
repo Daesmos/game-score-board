@@ -1,4 +1,4 @@
-package org.test.board;
+package org.test.board.domain;
 
 import java.util.List;
 
@@ -9,4 +9,6 @@ public interface IGameScoreBoard {
     List<String> getSummary();
 
     boolean finishGame(Game game);
+
+    void updateGameScore(int homeTeamScore, int awayTeamScore, Game game);
 }

@@ -1,7 +1,7 @@
 package org.test;
 
 import org.junit.jupiter.api.Test;
-import org.test.board.Game;
+import org.test.board.domain.Game;
 import org.test.board.GameScoreBoard;
 
 import java.util.List;
@@ -36,9 +36,9 @@ class GameScoreBoardTest {
     @Test
     void finishGame() {
         GameScoreBoard board = new GameScoreBoard();
-        Game gameA = board.createGame("Mexico", "Canada");
+        Game gameMexCan = board.createGame("Mexico", "Canada");
 
-        boolean finishResult = board.finishGame(gameA);
+        boolean finishResult = board.finishGame(gameMexCan);
         assertTrue(finishResult);
         assertLinesMatch(List.of(), board.getSummary());
     }
@@ -46,12 +46,25 @@ class GameScoreBoardTest {
     @Test
     void createTwoGamesAndFinishOnlyOne() {
         GameScoreBoard board = new GameScoreBoard();
-        Game gameA = board.createGame("Mexico", "Canada");
-        Game gameB = board.createGame("Spain", "Brazil");
+        Game gameMexCan = board.createGame("Mexico", "Canada");
+        board.createGame("Spain", "Brazil");
 
-        boolean finishResult = board.finishGame(gameA);
+        boolean finishResult = board.finishGame(gameMexCan);
+
+        List<String> expectedSummary = List.of("Spain 0 - Brazil 0");
+
         assertTrue(finishResult);
-        assertLinesMatch(List.of(gameB.getGameSummary()), board.getSummary());
+        assertLinesMatch(expectedSummary, board.getSummary());
+    }
+
+    @Test
+    void updateGameScore() {
+        GameScoreBoard board = new GameScoreBoard();
+        Game gameMexCan = board.createGame("Mexico", "Canada");
+        board.updateGameScore(2, 1, gameMexCan);
+
+        List<String> expectedSummary = List.of("Mexico 2 - Canada 1");
+        assertLinesMatch(expectedSummary, board.getSummary());
     }
 
 }

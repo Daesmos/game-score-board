@@ -1,5 +1,9 @@
 package org.test.board;
 
+import org.test.board.domain.BasicGameScoreBoard;
+import org.test.board.domain.Game;
+import org.test.board.domain.IGameScoreBoard;
+
 import java.util.List;
 
 public class GameScoreBoard {
@@ -16,5 +20,9 @@ public class GameScoreBoard {
 
     public boolean finishGame(Game game) {
         return this.gameScoreBoard.finishGame(game);
+    }
+
+    public void updateGameScore(int homeTeamScore, int awayTeamScore, Game game) {
+        this.gameScoreBoard.updateGameScore(homeTeamScore, awayTeamScore, game);
     }
 }

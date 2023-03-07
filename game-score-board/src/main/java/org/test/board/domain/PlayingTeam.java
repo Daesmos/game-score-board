@@ -1,4 +1,4 @@
-package org.test.board;
+package org.test.board.domain;
 
 public class PlayingTeam {
 
@@ -11,7 +11,11 @@ public class PlayingTeam {
         this.score = 0;
     }
 
-    public String getTeamSummary() {
+    protected void setScore(int score) {
+        this.score = score;
+    }
+
+    protected String getTeamSummary() {
         return this.name.concat(SUMMARY_SEPARATOR).concat(this.getStringScore());
     }
 
