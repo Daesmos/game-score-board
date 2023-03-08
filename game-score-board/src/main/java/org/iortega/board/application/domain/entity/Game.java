@@ -1,4 +1,4 @@
-package org.test.board.domain;
+package org.iortega.board.application.domain.entity;
 
 public class Game {
 

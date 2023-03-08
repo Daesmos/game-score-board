@@ -1,12 +1,13 @@
-package org.test;
+package org.iortega;
 
-import org.junit.jupiter.api.Test;
-import org.test.board.domain.Game;
-import org.test.board.GameScoreBoard;
-import org.test.board.exception.GameNotFoundException;
+import org.iortega.board.application.domain.entity.Game;
+import org.iortega.board.application.domain.exception.GameException;
+import org.iortega.board.infrastructure.adapter.repository.exception.GameNotFoundException;
 
 import java.util.List;
 
+import org.iortega.board.infrastructure.controller.library.GameScoreBoard;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameScoreBoardTest {
@@ -34,7 +35,7 @@ class GameScoreBoardTest {
     }
 
     @Test
-    void finishGame() throws GameNotFoundException {
+    void finishGame() throws GameException {
         GameScoreBoard board = new GameScoreBoard();
         Game gameMexCan = board.createGame("Mexico", "Canada");
 
@@ -44,7 +45,7 @@ class GameScoreBoardTest {
     }
 
     @Test
-    void createTwoGamesAndFinishOnlyOne() throws GameNotFoundException {
+    void createTwoGamesAndFinishOnlyOne() throws GameException {
         GameScoreBoard board = new GameScoreBoard();
         Game gameMexCan = board.createGame("Mexico", "Canada");
         board.createGame("Spain", "Brazil");
@@ -58,7 +59,7 @@ class GameScoreBoardTest {
     }
 
     @Test
-    void updateGameScore() throws GameNotFoundException {
+    void updateGameScore() throws GameException {
         GameScoreBoard board = new GameScoreBoard();
         Game gameMexCan = board.createGame("Mexico", "Canada");
         board.updateGameScore(2, 1, gameMexCan);
@@ -68,7 +69,7 @@ class GameScoreBoardTest {
     }
 
     @Test
-    void updateGameScoreSeveralTimes() throws GameNotFoundException {
+    void updateGameScoreSeveralTimes() throws GameException {
         GameScoreBoard board = new GameScoreBoard();
         Game gameMexCan = board.createGame("Mexico", "Canada");
         board.updateGameScore(0, 1, gameMexCan);
@@ -104,7 +105,7 @@ class GameScoreBoardTest {
     }
 
     @Test
-    void getSummaryOrderByTotalGameScore() throws GameNotFoundException {
+    void getSummaryOrderByTotalGameScore() throws GameException {
         GameScoreBoard board = new GameScoreBoard();
         Game gameMexCan = board.createGame("Mexico", "Canada");
         Game gameSpaBra = board.createGame("Spain", "Brazil");
@@ -122,7 +123,7 @@ class GameScoreBoardTest {
     }
 
     @Test
-    void getSummaryOrderWithSameTotalByMostRecentlyAdded() throws GameNotFoundException {
+    void getSummaryOrderWithSameTotalByMostRecentlyAdded() throws GameException {
         GameScoreBoard board = new GameScoreBoard();
         Game gameMexCan = board.createGame("Mexico", "Canada");
         Game gameSpaBra = board.createGame("Spain", "Brazil");

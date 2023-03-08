@@ -1,4 +1,4 @@
-package org.test.board.domain;
+package org.iortega.board.application.domain.entity;
 
 public class PlayingTeam {
 
@@ -6,12 +6,12 @@ public class PlayingTeam {
     private String name;
     private int score;
 
-    protected PlayingTeam(String name){
+    public PlayingTeam(String name){
         this.name = name;
         this.score = 0;
     }
 
-    protected int getScore() {
+    public int getScore() {
         return this.score;
     }
 
@@ -19,7 +19,7 @@ public class PlayingTeam {
         this.score = score;
     }
 
-    protected String getTeamSummary() {
+    public String getTeamSummary() {
         return this.name.concat(SUMMARY_SEPARATOR).concat(this.getStringScore());
     }
 

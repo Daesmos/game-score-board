@@ -1,16 +1,18 @@
-package org.test.board.repository;
+package org.iortega.board.infrastructure.adapter.repository;
 
-import org.test.board.domain.Game;
-import org.test.board.exception.GameNotFoundException;
+import org.iortega.board.application.domain.entity.Game;
+import org.iortega.board.application.domain.exception.GameException;
+import org.iortega.board.application.domain.port.GameRepository;
+import org.iortega.board.infrastructure.adapter.repository.exception.GameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryListScoreBoardRepository implements ScoreBoardRepository {
+public class InMemoryListGameRepository implements GameRepository {
 
     List<Game> games;
 
-    public InMemoryListScoreBoardRepository() {
+    public InMemoryListGameRepository() {
         this.games = new ArrayList<>();
     }
 
@@ -22,7 +24,7 @@ public class InMemoryListScoreBoardRepository implements ScoreBoardRepository {
         return this.games;
     }
 
-    public void updateGameScore (int homeTeamScore, int awayTeamScore, Game game) throws GameNotFoundException {
+    public void updateGameScore (int homeTeamScore, int awayTeamScore, Game game) throws GameException {
         if(this.exist(game)) {
             game.getHomeTeam().setScore(homeTeamScore);
             game.getAwayTeam().setScore(awayTeamScore);
@@ -31,7 +33,7 @@ public class InMemoryListScoreBoardRepository implements ScoreBoardRepository {
         }
     }
 
-    public boolean remove(Game game) throws GameNotFoundException {
+    public boolean remove(Game game) throws GameException {
         if(games.contains(game)) {
             return games.remove(game);
         } else {
