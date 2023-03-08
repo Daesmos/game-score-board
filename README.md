@@ -5,6 +5,21 @@ It allows you to create a Score Board where you can add games, update your score
 
 The summary is ordered by total score. Those games with the same total score will be returned ordered by the most recently added to the board.
 
+## Operations availables
+
+- **createGame:**<br>
+	Start a game on the board with score 0 - 0
+
+- **updateGameScore:**<br>
+	Updates the score of a given Game
+
+- **finishGame:**<br>
+	Remove a given Game from the board
+
+- **GetSummary:**<br>
+	Get a summary of games by total score.
+	Those games with the same total score will be returned ordered by the most recently added to the board.
+
 ### Assumptions
 
 - The user should only interact with the GameScoreBoard class to do all operations.
